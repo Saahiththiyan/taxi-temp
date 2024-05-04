@@ -22,12 +22,11 @@ const ReservationPage = () => {
   useEffect(() => {
     // Dummy locations
     const dummyLocations = [
-      { value: "1", label: "Galle" },
-      { value: "2", label: "Jaffna" },
-      { value: "3", label: "Ampara" },
-      { value: "4", label: "Sigiriya" },
-      { value: "5", label: "Colombo" },
-      // Add more locations as needed
+      { value: "1", label: "Colombo" },
+      { value: "2", label: "Kandy" },
+      { value: "3", label: "Galle" },
+      { value: "4", label: "Jaffna" },
+      { value: "5", label: "Trincomalee" },
     ];
     setLocations(dummyLocations);
 
@@ -168,11 +167,11 @@ const ReservationPage = () => {
           <Row className="mb-4">
             <Col md={6}>
               <Form.Group controlId="selectedVehicle">
-                <Form.Label>Select Vehicle</Form.Label>
+                <Form.Label>Select Driver</Form.Label>
                 <Form.Control as="select" name="selectedVehicle" value={formData.selectedVehicle} onChange={handleVehicleChange}>
-                  <option >Select Vehicle...</option>
+                  <option >Select Driver...</option>
                   {taxies.map(taxi => {
-                    return <option key={taxi.id} value={taxi.id}>{taxi.name}</option>
+                    return taxi.availability && <option key={taxi.id} value={taxi.id}>{taxi.driverName}</option>
                   })}
                   
                 </Form.Control>
@@ -193,7 +192,7 @@ const ReservationPage = () => {
           </Row>
           <Row className="mb-4">
             <Form.Group as={Col} md={6} controlId="date">
-              <Form.Label>Driver's Full Name</Form.Label>
+              <Form.Label>Date</Form.Label>
               <Form.Control type="date" name="date" value={formData.date} onChange={handleDateChange} />
             </Form.Group>
           </Row>

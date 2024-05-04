@@ -311,7 +311,7 @@ const RegisterVehicles = () => {
               >
                 <option value="">Select...</option>
                 <option value="true">Available</option>
-                <option value="false">Unavailable</option>
+                <option value="false">Busy</option>
               </Form.Control>
             </Form.Group>
           </Row>

@@ -6,6 +6,7 @@ import Taxi from "../../models/Taxi";
 
 const Taxies = () => {
   const [taxies, setTaxies] = useState([]);
+  const [reviews, setReviews] = useState([]);
   useEffect(() => {
     async function getTaxies() {
       const { data: taxies } = await supabase.from("taxies").select();
@@ -16,8 +17,19 @@ const Taxies = () => {
 
     getTaxies();
   }, []);
+  useEffect(() => {
+    async function getReviews() {
+      const { data: reviews } = await supabase.from("reviews").select("*, passengers(*), taxies(*)");
+      if (reviews.length > 0) {
+        setReviews(reviews);
+      }
+    }
+
+    getReviews();
+  }, []);
   return (
     <>
+      <h1>Taxies</h1>
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
@@ -46,12 +58,21 @@ const Taxies = () => {
                 <td>{taxi.driverName}</td>
                 <td>{taxi.contact}</td>
                 <td>{taxi.licNumber}</td>
-                <td>{taxi.availability ? "Available" : "Not-Available"}</td>
+                <td>{taxi.availability ? "Available" : "Busy"}</td>
               </tr>
             );
           })}
         </tbody>
       </Table>
+      <br />
+      <h1>Reviews</h1>
+      {reviews.map(review => {
+        return (
+          <div style={{marginBottom: '8px'}}>
+            <div>"{review.review}" by {review.passengers.email} for {review.taxies.driver_name}</div>
+          </div>
+        )
+      })}
     </>
   );
 };

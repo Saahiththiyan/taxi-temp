@@ -37,9 +37,8 @@ const Login = () => {
         email,
         password,
       });
-      console.log(dataUser);
       if (dataUser.user) {
-        navigate("/reservations");
+        window.location.href = '/reservations'
       }
       if (error) {
         console.log(error);
